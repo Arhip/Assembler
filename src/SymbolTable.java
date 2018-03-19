@@ -2,8 +2,10 @@ import java.util.HashMap;
 
 public class SymbolTable {
 
-    private static final String INITIAL_VALID_CHARS = "";
-    private static final String ALL_VALID_CHARS = "";
+    //Everything but integers, numbers not allowed before
+    private static final String INITIAL_VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.$:";
+    //All characters including numbers
+    private static final String ALL_VALID_CHARS =     "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.$:";
     private HashMap<String, Integer> symbolTable = new HashMap<>();
 
     /**
@@ -89,6 +91,17 @@ public class SymbolTable {
 
     private boolean isValidName(String symbol)
     {
-        return true;
+        for(int i = 0; i < ALL_VALID_CHARS.length(); i++)
+        {
+            for(int j = 0; j < INITIAL_VALID_CHARS.length(); j++)
+            {
+                if((symbol.charAt(0) == INITIAL_VALID_CHARS.charAt(j) && (symbol.contains(ALL_VALID_CHARS.substring(i, i+1)))))
+                {
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 }

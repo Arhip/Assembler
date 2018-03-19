@@ -2,9 +2,17 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Code code = new Code();
+        SymbolTable symbolTable = new SymbolTable();
 
-        System.out.println(code.decimalToBinary(432));
+        symbolTable.isValidName("test");
+        symbolTable.isValidName("5test");
+        symbolTable.isValidName("$test");
+        symbolTable.isValidName("/test");
+        symbolTable.isValidName("432");
+
+
+
+
 
     }
 
