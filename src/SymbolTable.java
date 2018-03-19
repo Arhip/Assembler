@@ -89,6 +89,11 @@ public class SymbolTable {
         return -1;
     }
 
+    /**
+     * checks if the symbol is valid
+     * @param symbol
+     * @return
+     */
     private boolean isValidName(String symbol)
     {
         for(int i = 0; i < ALL_VALID_CHARS.length(); i++)

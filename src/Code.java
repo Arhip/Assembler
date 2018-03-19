@@ -114,13 +114,27 @@ public class Code {
         }
     }
 
+    /**
+     * converts decimal to binary, checks the number is not negative and not bigger than 2^16
+     * @param decimal
+     * @return
+     */
     public String decimalToBinary(int decimal)
     {
-        String temp = "";
-        if(decimal <= 65536 && decimal >= 0)
-        {
-            temp = Integer.toBinaryString(decimal);
-            return temp;
+        String binary = "";
+        if(decimal <= 65536 && decimal >= 0) {
+            for (int i = 0; i < 16; i++) {
+                decimal /= 2;
+
+                if(decimal == 0)
+                {
+                    binary = 0 + binary;
+                }
+                else{
+                    binary = decimal % 2 + binary;
+                }
+            }
+            return binary;
         }
         else{
             return null;
