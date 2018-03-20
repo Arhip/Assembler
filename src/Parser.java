@@ -59,9 +59,20 @@ public class Parser {
         parseCommandType();
     }
 
+    /**
+     * helper method parses line depending on instruction type
+     */
     private void parse()
     {
-
+        if(commandType == C_COMMAND)
+        {
+            parseDest();
+            parseComp();
+            parseJump();
+        }
+        else{
+            parseSymbol();
+        }
     }
 
     /**
@@ -77,7 +88,6 @@ public class Parser {
         {
             symbol = cleanLine.substring(1, cleanLine.length()-1);
         }
-
     }
 
     /**
@@ -86,35 +96,37 @@ public class Parser {
     private void parseDest()
     {
         //dest = comp;jump
-        if(commandType == C_COMMAND)
+        if(!cleanLine.contains(";"))
         {
-            if(!cleanLine.contains(";"))
-            {
                 int equalsLocation = cleanLine.indexOf("=");
                 destMnemonic = cleanLine.substring(0, equalsLocation);
-            }
         }
     }
 
+
+    /**
+     * helper method parses line to get comp part
+     */
     private void parseComp()
     {
-        if(commandType == C_COMMAND)
+        if(cleanLine.contains(";"))
         {
-            if(cleanLine.contains(";"))
-            {
-                int colonLocation = cleanLine.indexOf(";");
-                compMnemonic = cleanLine.substring(0, colonLocation);
-            }
-            else{
-                int equalLocation = cleanLine.indexOf("=");
-                compMnemonic = cleanLine.substring(equalLocation + 1, cleanLine.length());
-            }
+            int colonLocation = cleanLine.indexOf(";");
+            compMnemonic = cleanLine.substring(0, colonLocation);
+        }
+        else{
+            int equalLocation = cleanLine.indexOf("=");
+            compMnemonic = cleanLine.substring(equalLocation + 1, cleanLine.length());
         }
     }
 
+    /**
+     * helper method parses line to get jump part
+     */
     private void parseJump()
     {
-
+        int colonLocation = cleanLine.indexOf(";");
+        jumpMnemonic = cleanLine.substring(colonLocation + 1, cleanLine.length());
     }
 
     /**
