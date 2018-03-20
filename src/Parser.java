@@ -1,5 +1,3 @@
-import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -30,9 +28,10 @@ public class Parser {
             inputFile = new Scanner(file);
 
             while(hasMoreCommands()){
+                lineNumber++;
                 rawLine = inputFile.nextLine();
                 advance();
-
+                parse();
             }
         }
         catch(FileNotFoundException ex){
@@ -127,6 +126,87 @@ public class Parser {
     {
         int colonLocation = cleanLine.indexOf(";");
         jumpMnemonic = cleanLine.substring(colonLocation + 1, cleanLine.length());
+    }
+
+    /**
+     * getter for commandType
+     * @return
+     */
+    public char getCommandType()
+    {
+        return commandType;
+    }
+
+    /**
+     * getter for symbol
+     * @return
+     */
+    public String getSymbol()
+    {
+        return symbol;
+    }
+
+    /**
+     * getter for destMnemonic
+     * @return
+     */
+    public String getDest()
+    {
+        return destMnemonic;
+    }
+
+    /**
+     * getter for compMnemonic
+     * @return
+     */
+    public String getComp()
+    {
+        return compMnemonic;
+    }
+
+    /**
+     * getter for jumpMnemonic
+     * @return
+     */
+    public String getJump()
+    {
+        return jumpMnemonic;
+    }
+
+    /**
+     * getter for string commandType
+     * @return
+     */
+    public String getCommandTypeString()
+    {
+        return "" + commandType;
+    }
+
+    /**
+     * getter for rawline
+     * @return
+     */
+    public String getRawLine()
+    {
+        return rawLine;
+    }
+
+    /**
+     * getter for cleanline
+     * @return
+     */
+    public String getCleanLine()
+    {
+        return cleanLine;
+    }
+
+    /**
+     * getter for linenumber
+     * @return
+     */
+    public int getLineNumber()
+    {
+        return lineNumber;
     }
 
     /**
