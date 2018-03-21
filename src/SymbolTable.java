@@ -94,19 +94,30 @@ public class SymbolTable {
      * @param symbol
      * @return
      */
-    private boolean isValidName(String symbol)
+    public boolean isValidName(String symbol)
     {
-        for(int i = 0; i < ALL_VALID_CHARS.length(); i++)
-        {
-            for(int j = 0; j < INITIAL_VALID_CHARS.length(); j++)
+        int count = 0;
+        boolean secondPass = true;
+        boolean firstPass = false;
+        for(int i = 0; i < INITIAL_VALID_CHARS.length(); i++) {
+            if (symbol.startsWith(INITIAL_VALID_CHARS.charAt(i) + ""))
             {
-                if((symbol.charAt(0) == INITIAL_VALID_CHARS.charAt(j) && (symbol.contains(ALL_VALID_CHARS.substring(i, i+1)))))
-                {
-                    return true;
+                firstPass = true;
+            }
+        }
+        for(int i = 0; i < symbol.length(); i++){
+            for(int j = 0; j < ALL_VALID_CHARS.length(); j++) {
+                if (symbol.charAt(i) == ALL_VALID_CHARS.charAt(j)) {
+                    count++;
                 }
             }
-
         }
-        return false;
+        if(count == symbol.length() && firstPass)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
