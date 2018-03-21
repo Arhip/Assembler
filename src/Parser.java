@@ -99,7 +99,7 @@ public class Parser {
     private void parseDest()
     {
         //dest = comp;jump
-        if(!cleanLine.contains(";"))
+        if(cleanLine.contains("="))
         {
                 int equalsLocation = cleanLine.indexOf("=");
                 destMnemonic = cleanLine.substring(0, equalsLocation);
@@ -117,7 +117,7 @@ public class Parser {
             int colonLocation = cleanLine.indexOf(";");
             compMnemonic = cleanLine.substring(0, colonLocation);
         }
-        else{
+        else if (cleanLine.contains("=")){
             int equalLocation = cleanLine.indexOf("=");
             compMnemonic = cleanLine.substring(equalLocation + 1, cleanLine.length());
         }
@@ -128,8 +128,10 @@ public class Parser {
      */
     private void parseJump()
     {
-        int colonLocation = cleanLine.indexOf(";");
-        jumpMnemonic = cleanLine.substring(colonLocation + 1, cleanLine.length());
+        if(cleanLine.contains(";")) {
+            int colonLocation = cleanLine.indexOf(";");
+            jumpMnemonic = cleanLine.substring(colonLocation + 1, cleanLine.length());
+        }
     }
 
     /**
