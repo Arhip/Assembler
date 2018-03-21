@@ -36,14 +36,16 @@ public class Assembler {
 			System.out.println("Please enter assembly file name you would like to assemble.");
 			System.out.println("Don't forget the .asm extension: ");
 			inputFileName = keyboard.nextLine();
-					
+
 			keyboard.close();
+
 		}
 		
 		outputFileName = inputFileName.substring(0,inputFileName.lastIndexOf('.')) + ".hack";
 							
 		try {
 			outputFile = new PrintWriter(new FileOutputStream(outputFileName));
+
 		} catch (FileNotFoundException ex) {
 			System.err.println("Could not open output file " + outputFileName);
 			System.err.println("Run program again, make sure you have write permissions, etc.");
@@ -58,8 +60,9 @@ public class Assembler {
 		// add the pair <LABEL, n> to the symbol table
 		// n = romAddress which you should keep track of as you go through each line
 	//HINT: when should rom address increase? What kind of commands?
+	//When L or A command has a symbol
 	private static void firstPass(String inputFileName, SymbolTable symbolTable) {
-
+		Parser parser = new Parser(inputFileName);
 	}
 	
 	// TODO: march again through the source code and process each line:

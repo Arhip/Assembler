@@ -1,3 +1,10 @@
+/**
+ * Code.java translates assembly language code from mnemonics to binary
+ *
+ * @author Arhip Bobkov
+ * @version 1.0
+ */
+
 import java.util.HashMap;
 
 public class Code {

@@ -1,3 +1,7 @@
+/**
+ * Parser.java cleans a line of code and
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

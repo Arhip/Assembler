@@ -5,7 +5,7 @@ public class SymbolTable {
     //Everything but integers, numbers not allowed before
     private static final String INITIAL_VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.$:";
     //All characters including numbers
-    private static final String ALL_VALID_CHARS =     "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.$:";
+    private static final String ALL_VALID_CHARS = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.$:";
     private HashMap<String, Integer> symbolTable = new HashMap<>();
 
     /**
