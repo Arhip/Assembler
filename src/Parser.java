@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class Parser {
 
-    public char NO_COMMAND = 'N';
-    public char A_COMMAND = 'A';
-    public char C_COMMAND = 'C';
-    public char L_COMMAND = 'L';
+    public static final char NO_COMMAND = 'N';
+    public static final char A_COMMAND = 'A';
+    public static final char C_COMMAND = 'C';
+    public static final char L_COMMAND = 'L';
 
     private Scanner inputFile;
     private int lineNumber = 0;

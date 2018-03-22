@@ -40,7 +40,8 @@ public class Assembler {
 			keyboard.close();
 
 		}
-		
+
+
 		outputFileName = inputFileName.substring(0,inputFileName.lastIndexOf('.')) + ".hack";
 							
 		try {
@@ -62,14 +63,17 @@ public class Assembler {
 	//HINT: when should rom address increase? What kind of commands?
 	//When L or A command has a symbol
 	private static void firstPass(String inputFileName, SymbolTable symbolTable) {
-		int n = 16;
+		int n = 0;
 		Parser parser = new Parser(inputFileName);
 		while(parser.hasMoreCommands())
 		{
 			parser.advance();
-			if(parser.getCommandType() == parser.L_COMMAND)
+			if(parser.getCommandType() == Parser.L_COMMAND)
 			{
 				symbolTable.addEntry(parser.getSymbol(), n);
+			}
+			else if(parser.getCommandType() == Parser.A_COMMAND || parser.getCommandType() == Parser.C_COMMAND)
+			{
 				n++;
 			}
 		}
@@ -88,14 +92,18 @@ public class Assembler {
 				//	available RAM address, and complete the commands translation
 	// HINT: when should rom address increase?  What should ram address start
 	// at? When should it increase?  What do you do with L commands and No commands?
+	// Rom address does not increase during the second pass, Ram starts at 16 an increments whenever
+	// a new variable is added to the symbol table.
+	// Nothing we do not have if statements that keep track of them, the program will just iterate over them
 	private static void secondPass(String inputFileName, SymbolTable symbolTable, PrintWriter outputFile) {
 
+		int n = 16;
 		Parser parser = new Parser(inputFileName);
 		Code code = new Code();
 		while(parser.hasMoreCommands())
 		{
 			parser.advance();
-			if(parser.getCommandType() == parser.C_COMMAND)
+			if(parser.getCommandType() == Parser.C_COMMAND)
 			{
 				//111A CCCC CCDD DJJJ
 				String cInstruction;
@@ -105,13 +113,14 @@ public class Assembler {
 
 				outputFile.println(cInstruction);
 			}
-			if(parser.getCommandType() == parser.A_COMMAND)
+			if(parser.getCommandType() == Parser.A_COMMAND)
 			{
 				//0vvv vvvv vvvv vvvv
 				String aInstruction;
 				if(parser.getSymbol().matches("\\d+"))
 				{
 					aInstruction = code.decimalToBinary(Integer.parseInt(parser.getSymbol()));
+					outputFile.println(aInstruction);
 				}
 
 				else
@@ -119,14 +128,18 @@ public class Assembler {
 					if(symbolTable.contains(parser.getSymbol()))
 					{
 						aInstruction = code.decimalToBinary(symbolTable.getAddress(parser.getSymbol()));
+						outputFile.println(aInstruction);
 					}
 					else{
-						
+						symbolTable.addEntry(parser.getSymbol(), n);
+						aInstruction = code.decimalToBinary(symbolTable.getAddress(parser.getSymbol()));
+						outputFile.println(aInstruction);
+						n++;
 					}
 				}
 			}
 		}
-
+		outputFile.close();
 	}
 	
 

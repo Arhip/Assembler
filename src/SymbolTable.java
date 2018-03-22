@@ -1,3 +1,7 @@
+/**
+ * SymbolTable.java keeps symbolic association between numeric addresses and mnemonic names
+ */
+
 import java.util.HashMap;
 
 public class SymbolTable {
