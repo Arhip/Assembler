@@ -46,7 +46,7 @@ public class SymbolTable {
      */
     public boolean addEntry(String symbol, int address)
     {
-        if(!symbolTable.containsValue(address) && !symbolTable.containsKey(symbol))
+        if(!contains(symbol) && isValidName(symbol))
         {
             symbolTable.put(symbol, address);
             return true;
@@ -94,7 +94,7 @@ public class SymbolTable {
      * @param symbol
      * @return
      */
-    public boolean isValidName(String symbol)
+    private boolean isValidName(String symbol)
     {
         int count = 0;
         boolean secondPass = true;

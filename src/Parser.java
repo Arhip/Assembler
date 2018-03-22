@@ -15,14 +15,14 @@ public class Parser {
 
     private Scanner inputFile;
     private int lineNumber = 0;
-    private String rawLine = "";
+    private String rawLine = null;
 
-    private String cleanLine = "";
-    private char commandType;
-    private String symbol = "";
-    private String destMnemonic = "";
-    private String compMnemonic = "";
-    private String jumpMnemonic = "";
+    private String cleanLine = null;
+    private char commandType = NO_COMMAND;
+    private String symbol = null;
+    private String destMnemonic = null;
+    private String compMnemonic = null;
+    private String jumpMnemonic = null;
 
 
     public Parser(String inFileName){
@@ -30,13 +30,6 @@ public class Parser {
         try {
             File file = new File(inFileName);
             inputFile = new Scanner(file);
-
-            while(hasMoreCommands()){
-                lineNumber++;
-                rawLine = inputFile.nextLine();
-                advance();
-                parse();
-            }
         }
         catch(FileNotFoundException ex){
             ex.printStackTrace();
@@ -60,6 +53,8 @@ public class Parser {
         rawLine = inputFile.nextLine();
         cleanLine();
         parseCommandType();
+        parse();
+        lineNumber++;
     }
 
     /**
@@ -131,6 +126,9 @@ public class Parser {
         if(cleanLine.contains(";")) {
             int colonLocation = cleanLine.indexOf(";");
             jumpMnemonic = cleanLine.substring(colonLocation + 1, cleanLine.length());
+        }
+        else{
+            jumpMnemonic = null;
         }
     }
 

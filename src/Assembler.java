@@ -62,7 +62,18 @@ public class Assembler {
 	//HINT: when should rom address increase? What kind of commands?
 	//When L or A command has a symbol
 	private static void firstPass(String inputFileName, SymbolTable symbolTable) {
+		int n = 16;
 		Parser parser = new Parser(inputFileName);
+		while(parser.hasMoreCommands())
+		{
+			parser.advance();
+			if(parser.getCommandType() == parser.L_COMMAND)
+			{
+				symbolTable.addEntry(parser.getSymbol(), n);
+				n++;
+			}
+		}
+
 	}
 	
 	// TODO: march again through the source code and process each line:
@@ -78,6 +89,43 @@ public class Assembler {
 	// HINT: when should rom address increase?  What should ram address start
 	// at? When should it increase?  What do you do with L commands and No commands?
 	private static void secondPass(String inputFileName, SymbolTable symbolTable, PrintWriter outputFile) {
+
+		Parser parser = new Parser(inputFileName);
+		Code code = new Code();
+		while(parser.hasMoreCommands())
+		{
+			parser.advance();
+			if(parser.getCommandType() == parser.C_COMMAND)
+			{
+				//111A CCCC CCDD DJJJ
+				String cInstruction;
+				cInstruction = "111" + code.getComp(parser.getComp()) +
+						               code.getDest(parser.getDest()) +
+						               code.getJump(parser.getJump());
+
+				outputFile.println(cInstruction);
+			}
+			if(parser.getCommandType() == parser.A_COMMAND)
+			{
+				//0vvv vvvv vvvv vvvv
+				String aInstruction;
+				if(parser.getSymbol().matches("\\d+"))
+				{
+					aInstruction = code.decimalToBinary(Integer.parseInt(parser.getSymbol()));
+				}
+
+				else
+				{
+					if(symbolTable.contains(parser.getSymbol()))
+					{
+						aInstruction = code.decimalToBinary(symbolTable.getAddress(parser.getSymbol()));
+					}
+					else{
+						
+					}
+				}
+			}
+		}
 
 	}
 	

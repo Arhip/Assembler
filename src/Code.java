@@ -129,7 +129,7 @@ public class Code {
     public String decimalToBinary(int decimal)
     {
         String binary = "";
-        if(decimal <= 65536 && decimal >= 0) {
+        if(decimal < 65536 && decimal >= 0) {
             for (int i = 0; i < 16; i++) {
                 decimal /= 2;
 
