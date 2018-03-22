@@ -128,18 +128,13 @@ public class Code {
      */
     public String decimalToBinary(int decimal)
     {
+        int temp = decimal;
         String binary = "";
         if(decimal < 65536 && decimal >= 0) {
             for (int i = 0; i < 16; i++) {
-                decimal /= 2;
 
-                if(decimal == 0)
-                {
-                    binary = 0 + binary;
-                }
-                else{
-                    binary = decimal % 2 + binary;
-                }
+                binary = temp % 2 + binary;
+                temp /= 2;
             }
             return binary;
         }

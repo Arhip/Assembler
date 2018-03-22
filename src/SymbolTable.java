@@ -1,5 +1,8 @@
 /**
  * SymbolTable.java keeps symbolic association between numeric addresses and mnemonic names
+ *
+ * @author Arhip Bobkov
+ * @version 1.0
  */
 
 import java.util.HashMap;

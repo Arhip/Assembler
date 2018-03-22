@@ -1,5 +1,9 @@
 /**
- * Parser.java cleans a line of code and
+ * Parser.java converts the raw string to a clean line of code
+ * The cleaned file is used in conjunction with code to translate
+ *
+ * @author Arhip Bobkov
+ * @version 1.0
  */
 
 import java.io.File;
@@ -15,14 +19,14 @@ public class Parser {
 
     private Scanner inputFile;
     private int lineNumber = 0;
-    private String rawLine = null;
+    private String rawLine = "null";
 
-    private String cleanLine = null;
+    private String cleanLine = "null";
     private char commandType = NO_COMMAND;
-    private String symbol = null;
-    private String destMnemonic = null;
-    private String compMnemonic = null;
-    private String jumpMnemonic = null;
+    private String symbol = "null";
+    private String destMnemonic = "null";
+    private String compMnemonic = "null";
+    private String jumpMnemonic = "null";
 
 
     public Parser(String inFileName){
@@ -86,6 +90,9 @@ public class Parser {
         {
             symbol = cleanLine.substring(1, cleanLine.length()-1);
         }
+        else{
+            symbol = "null";
+        }
     }
 
     /**
@@ -98,6 +105,9 @@ public class Parser {
         {
                 int equalsLocation = cleanLine.indexOf("=");
                 destMnemonic = cleanLine.substring(0, equalsLocation);
+        }
+        else{
+            destMnemonic = "null";
         }
     }
 
@@ -116,6 +126,9 @@ public class Parser {
             int equalLocation = cleanLine.indexOf("=");
             compMnemonic = cleanLine.substring(equalLocation + 1, cleanLine.length());
         }
+        else{
+            compMnemonic = "null";
+        }
     }
 
     /**
@@ -128,7 +141,7 @@ public class Parser {
             jumpMnemonic = cleanLine.substring(colonLocation + 1, cleanLine.length());
         }
         else{
-            jumpMnemonic = null;
+            jumpMnemonic = "null";
         }
     }
 

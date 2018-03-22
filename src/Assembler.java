@@ -1,4 +1,10 @@
-//Author info here
+/**
+ * Assembler.java main method for the assembler
+ * Methods for firstpass and secondpass runs
+ *
+ * @author Arhip Bobkov
+ * @version 1.0
+ */
 //TODO: don't forget to document each method in all classes!
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +27,7 @@ public class Assembler {
 		
 		String inputFileName, outputFileName;
 		PrintWriter outputFile = null; //keep compiler happy
-		SymbolTable symbolTable;
+		SymbolTable symbolTable = new SymbolTable();
 		int romAddress, ramAddress;
 	
 		//get input file name from command line or console input
@@ -41,7 +47,6 @@ public class Assembler {
 
 		}
 
-
 		outputFileName = inputFileName.substring(0,inputFileName.lastIndexOf('.')) + ".hack";
 							
 		try {
@@ -54,6 +59,10 @@ public class Assembler {
 		}
 		
 		// TODO: finish driver as algorithm describes
+		firstPass(inputFileName, symbolTable);
+		secondPass(inputFileName, symbolTable, outputFile);
+		System.out.println("done");
+		outputFile.close();
 	}
 	
 	// TODO: march through the source code without generating any code
@@ -62,6 +71,12 @@ public class Assembler {
 		// n = romAddress which you should keep track of as you go through each line
 	//HINT: when should rom address increase? What kind of commands?
 	//When L or A command has a symbol
+
+	/**
+	 * firstPass does the firstPass
+	 * @param inputFileName
+	 * @param symbolTable
+	 */
 	private static void firstPass(String inputFileName, SymbolTable symbolTable) {
 		int n = 0;
 		Parser parser = new Parser(inputFileName);
@@ -139,7 +154,6 @@ public class Assembler {
 				}
 			}
 		}
-		outputFile.close();
 	}
 	
 
